@@ -2,9 +2,9 @@
 Commercial Area Analysis
 상권종합 분석 서비스를 제공하는 웹사이트입니다.
 
-![image-20200215193040203](C:\Users\USER\AppData\Roaming\Typora\typora-user-images\image-20200215193040203.png)
+![image-20200215193040203](메인화면.png)
 
-![image-20200215193139437](C:\Users\USER\AppData\Roaming\Typora\typora-user-images\image-20200215193139437.png)
+![image-20200215193139437](지도화면.png)
 
 공공데이터로 제공되는 여러 상권 관련 데이터를 이용하여 분석하기 쉽도록 차트와 그래프를 제공하는 기능이 구현되어 있습니다.
 
