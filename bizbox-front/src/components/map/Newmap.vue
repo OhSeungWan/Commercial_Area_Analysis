@@ -553,7 +553,7 @@ export default {
       // 지도에 클릭 이벤트를 등록
 
       this.removeCircles()
-      if (this.$store.state.mode === 1) {
+      if (this.$store.state.mode === 1 && this.map.getLevel()<4) {
         if (this.ChangeBusinessTable !== null) {
           // overay 삭제 매서드
           this.ChangeBusinessTable.setMap(null)
@@ -596,6 +596,7 @@ export default {
           }
         }
       }
+      else if(this.$store.state.mode === 1  && this.map.getLevel() > 3){alert("원 검색을 하기위해서는 맵을 좀더 확대해 주세요")}
     },
     CircleMoveClick(mouseEvent) {
       if (this.drawingFlag) {
