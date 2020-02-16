@@ -261,8 +261,8 @@ public class JusoApi {
 		int radiusincrease = 1; 
 		JSONObject data = new JSONObject();
 		while(true) {
-			if(radius == 0) {radius = 65;}
-			else {radius +=radiusincrease*65; radiusincrease++;}
+			if(radius == 0) {radius = 100;}
+			else {radius +=radiusincrease*100; radiusincrease++;}
 			
 			String apiUrl = "http://apis.data.go.kr/B553077/api/open/sdsc/storeZoneInRadius?"
 					+ "radius=" + radius 
