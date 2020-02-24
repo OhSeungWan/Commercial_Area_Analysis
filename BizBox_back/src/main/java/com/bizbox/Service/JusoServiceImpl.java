@@ -23,6 +23,7 @@ import com.bizbox.dao.StoreDAO;
 import com.bizbox.utils.AddressUtil;
 import com.bizbox.vo.Point;
 import com.bizbox.vo.Store;
+
 @Service
 public class JusoServiceImpl implements JusoService{
 	@Autowired
@@ -33,6 +34,8 @@ public class JusoServiceImpl implements JusoService{
 	KakaoApi kakaoapi;
 	@Autowired
 	StoreDAO storedao;
+	@Autowired
+	StoreService storeservice;
 	
 	/**
 	 * 도로명주소로 입력 하여 정보를 String으로 받음
@@ -120,10 +123,8 @@ public class JusoServiceImpl implements JusoService{
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("해당주소가 존재하지않습니다.");
 			e.printStackTrace();
 		}
-		System.out.println(size);
 		return temp.toString();
 	}
 	
@@ -146,7 +147,7 @@ public class JusoServiceImpl implements JusoService{
 				addresslist.add(ad);
 			}
 		} catch (Exception e) {
-			System.out.println("해당주소가 존재하지않습니다.");
+			e.printStackTrace();
 		}
 		Set Address = new HashSet<String>();
 		AddressUtil util = new AddressUtil();
@@ -176,7 +177,7 @@ public class JusoServiceImpl implements JusoService{
 				donglist.add(sp);
 			}
 		} catch (Exception e) {
-			System.out.println("해당주소가 존재하지않습니다.");
+			e.printStackTrace();
 		}
 		Set Dong = new HashSet<String>();
 		for (int i = 0; i < donglist.size(); i++) {
@@ -342,7 +343,7 @@ public class JusoServiceImpl implements JusoService{
 	 * @throws IOException
 	 */
 	public JSONObject findAllStoreByLarge(String xy, String radius) throws IOException {
-		JSONArray itemsArray = jusoapi.findStore1(xy, radius);
+		JSONArray itemsArray = jusoapi.findStoreToJson(xy, radius);
 		HashMap<String, Integer> LNm = new HashMap<String, Integer>();
 		for (int i = 0; i < itemsArray.size(); i++) {
 			JSONObject items = (JSONObject) itemsArray.get(i);
@@ -356,15 +357,16 @@ public class JusoServiceImpl implements JusoService{
 		}
 		
 		JSONObject jsonObject = new JSONObject();
-		JSONArray array = new JSONArray();
 		for (Map.Entry<String, Integer> entry : LNm.entrySet()) {
-			JSONObject jsonObject1 = new JSONObject();
 			String key = entry.getKey();
 			int value = entry.getValue();
-			jsonObject1.put(key, value);
-			array.add(jsonObject1);
+			if(key.contains("학문")) {
+				key = "학문교육";
+			}else if(key.contains("관광")) {
+				key = "관광여가오락";
+			}
+			jsonObject.put(key, value);
 		}
-		jsonObject.put("large", array);
 		return jsonObject;
 	}
 	
@@ -384,16 +386,10 @@ public class JusoServiceImpl implements JusoService{
 			lot = latlot[0];
 		}
 		
-		String distance = String.valueOf(Double.parseDouble(radius)/1000.0);
+		String distance = String.valueOf(radius);
 		Point point = new Point(lat, lot, distance);
-
-		List<Store> list = null;
-		try {
-			list = storedao.getStoreByXY(point);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		
+		List<Store> list = storeservice.getAllStoreByXY(point);
 		
 		HashMap<String, Integer> LNm = new HashMap<String, Integer>();
 		for (int i = 0; i < list.size(); i++) {
@@ -405,11 +401,10 @@ public class JusoServiceImpl implements JusoService{
 			}
 		}
 		
-		JSONArray itemsArray = jusoapi.findStore1(xy, radius);
+		JSONArray itemsArray = jusoapi.findStoreToJson(xy, radius);
 		for (int i = 0; i < itemsArray.size(); i++) {
 			JSONObject items = (JSONObject) itemsArray.get(i);
 			String indsLclsNm = (String) items.get("indsLclsNm"); // 대분류
-//			indsLclsNm = indsLclsNm.replace("/", "");
 			
 			if (LNm.containsKey(indsLclsNm)) { // 대분류 당 갯수
 				LNm.put(indsLclsNm, LNm.get(indsLclsNm) + 1);
@@ -421,6 +416,11 @@ public class JusoServiceImpl implements JusoService{
 		JSONObject jsonObject = new JSONObject();
 		for (Map.Entry<String, Integer> entry : LNm.entrySet()) {
 			String key = entry.getKey();
+			if(key.contains("학문")) {
+				key = "학문교육";
+			}else if(key.contains("관광")) {
+				key = "관광여가오락";
+			}
 			int value = entry.getValue();
 			jsonObject.put(key, value);
 		}
@@ -438,7 +438,8 @@ public class JusoServiceImpl implements JusoService{
 	 */
 	@Override
 	public JSONObject findStoreDetailByCategory(String xy, String range, String middle, String small) throws IOException {
-		JSONArray itemsArray = jusoapi.findStore1(xy, range);
+		String cxcy = xy.split(",")[1] + "," + xy.split(",")[0];
+		JSONArray itemsArray = jusoapi.findStoreToJson(cxcy, range);
 		JSONObject object = new JSONObject();
 		JSONArray array = new JSONArray();
 		
@@ -450,15 +451,9 @@ public class JusoServiceImpl implements JusoService{
 			lot = latlot[0];
 		}
 		
-		String distance = String.valueOf(Double.parseDouble(range)/1000.0);
-		Point point = new Point(lat, lot, distance);
+		Point point = new Point(lat, lot, range);
 
-		List<Store> list = null;
-		try {
-			list = storedao.getStoreByXY(point);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		List<Store> list = storeservice.getAllStoreByXY(point);
 		
 		for (int i = 0; i < list.size(); i++) {
 			if(list.get(i).getCategory_middle().equals(middle) && list.get(i).getCategory_small().equals(small)) {
@@ -476,8 +471,6 @@ public class JusoServiceImpl implements JusoService{
 				array.add(data);
 			}
 		}
-		
-		
 		
 		if(small.equals("전체")) { //소분류 전체를 보여줄때
 			for (int i = 0; i < itemsArray.size(); i++) {

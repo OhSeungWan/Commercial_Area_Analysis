@@ -105,7 +105,6 @@ public class JusoApi {
 			entX = (String) xyObject.get("entX");
 			entY = (String) xyObject.get("entY");
 		} catch (Exception e) {
-			System.out.println("xy좌표 찾기 오류");
 			e.printStackTrace();
 		}
 		String[] proj4_w = new String[] { "+proj=tmerc", "+lat_0=38", "+lon_0=127.5", "+ellps=GRS80", "+units=m",
@@ -138,7 +137,7 @@ public class JusoApi {
 		StringBuilder urlBuilder = new StringBuilder(
 				"http://apis.data.go.kr/B553077/api/open/sdsc/storeListInRadius"); /* URL */
 		urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8")
-				+ "=h5CUnUDTM85ZI2cIPt4%2FIi6OA08RKDUIfE7%2BDxZ65vsXZ1tPLvGr0a4LI8bj4Ad86ISzZiLH1tu3f4n5wnb2NA%3D%3D"); 
+				+ "=T%2Fw0BcGePxVMSrVazqTuA%2F9nT71RJNcY%2F6xMK0kYqOsMiJ%2FEUy4OCK0ilT3KmRXy8hNQkU90H22LRlSHTid%2BUQ%3D%3D"); 
 		urlBuilder.append(
 				"&" + URLEncoder.encode("radius", "UTF-8") + "=" + URLEncoder.encode(radius, "UTF-8"));
 		urlBuilder.append(
@@ -182,7 +181,7 @@ public class JusoApi {
 	 * @throws IOException
 	 */
 	@Cacheable(cacheNames = "FindStore")
-	public JSONArray findStore1(String xy, String radius) throws IOException {
+	public JSONArray findStoreToJson(String xy, String radius) throws IOException {
 		int idx = 0;
 		JSONArray list = new JSONArray();
 		while(true) {
@@ -192,7 +191,7 @@ public class JusoApi {
 			StringBuilder urlBuilder = new StringBuilder(
 					"http://apis.data.go.kr/B553077/api/open/sdsc/storeListInRadius"); /* URL */
 			urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8")
-			+ "=h5CUnUDTM85ZI2cIPt4%2FIi6OA08RKDUIfE7%2BDxZ65vsXZ1tPLvGr0a4LI8bj4Ad86ISzZiLH1tu3f4n5wnb2NA%3D%3D"); 
+			+ "=T%2Fw0BcGePxVMSrVazqTuA%2F9nT71RJNcY%2F6xMK0kYqOsMiJ%2FEUy4OCK0ilT3KmRXy8hNQkU90H22LRlSHTid%2BUQ%3D%3D"); 
 			urlBuilder.append(
 					"&" + URLEncoder.encode("radius", "UTF-8") + "=" + URLEncoder.encode(radius, "UTF-8"));
 			urlBuilder.append(
@@ -256,12 +255,13 @@ public class JusoApi {
 	 */
 	public JSONObject findBusiness(String cx,String cy) throws IOException {
 		String resultType = "json";
-		String ServiceKey = "h5CUnUDTM85ZI2cIPt4%2FIi6OA08RKDUIfE7%2BDxZ65vsXZ1tPLvGr0a4LI8bj4Ad86ISzZiLH1tu3f4n5wnb2NA%3D%3D";
+		String ServiceKey = "T%2Fw0BcGePxVMSrVazqTuA%2F9nT71RJNcY%2F6xMK0kYqOsMiJ%2FEUy4OCK0ilT3KmRXy8hNQkU90H22LRlSHTid%2BUQ%3D%3D";//"h5CUnUDTM85ZI2cIPt4%2FIi6OA08RKDUIfE7%2BDxZ65vsXZ1tPLvGr0a4LI8bj4Ad86ISzZiLH1tu3f4n5wnb2NA%3D%3D";
 		int radius = 0;
 		int radiusincrease = 1; 
 		JSONObject data = new JSONObject();
 		while(true) {
-			if(radius == 0) {radius = 100;}
+			if(radius == 4000) break;
+			if(radius == 0) {radius = 150;}
 			else {radius +=radiusincrease*100; radiusincrease++;}
 			
 			String apiUrl = "http://apis.data.go.kr/B553077/api/open/sdsc/storeZoneInRadius?"
@@ -282,7 +282,6 @@ public class JusoApi {
 				sb.append(tempStr);
 			}
 			br.close();
-			
 			try {
 				JSONParser jsonParse = new JSONParser();
 				JSONObject jsonObj = (JSONObject) jsonParse.parse(sb.toString());
@@ -292,7 +291,6 @@ public class JusoApi {
 					continue;
 				JSONObject body = (JSONObject) jsonObj.get("body");
 				JSONArray itemsArray = (JSONArray) body.get("items");
-				System.out.println(itemsArray.toString());
 				data = (JSONObject) itemsArray.get(0);
 				if (resultCode.equals("00"))
 					break;

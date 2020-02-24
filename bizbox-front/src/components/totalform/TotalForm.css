@@ -12,6 +12,8 @@ form {
 
 div.v-tab.v-tab--active {
   background-color: #ffffff;
+  border-bottom: 2px solid rgb(232, 113, 91);;
+  z-index: 2;
 }
 
 div.v-tab {
@@ -19,10 +21,13 @@ div.v-tab {
 }
 
 .closeButton {
-  background-color: #34256b;
+  background-color: #0f425f;
+  padding: 12px 0;
+  font-sizE: 1.5em;
 }
 
 div.v-tab.v-tab--active span {
   color: #34256b;
+  font-weight: bold;
 }
 

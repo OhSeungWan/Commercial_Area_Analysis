@@ -11,14 +11,6 @@
 
 <script>
 export default {
-  data () {
-    return {
-      bg: {
-        backgroundColor: 'rgba(0,0,0,0.1)',
-        filter: 'blur(2px)'
-      }
-    }
-  },
   props: {
     loading: {
       type: Boolean,
@@ -32,6 +24,14 @@ export default {
     if (this.transparent) {
       this.bg.backgroundColor = 'rgba(245, 245, 245)'
       this.bg.filter = 'none'
+    }
+  },
+  data () {
+    return {
+      bg: {
+        backgroundColor: 'rgba(255, 255, 255, 0.616)',
+        filter: 'blue(2px)'
+      }
     }
   }
 }
