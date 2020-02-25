@@ -21,7 +21,8 @@ const store = new Vuex.Store({
     opencontents: 3,
     sgName: '',
     subCategory: '',
-    showModal:false
+    showModal:false,
+    place:''
   },
   actions: {
     'ChangeCenter': (store, payload) => {

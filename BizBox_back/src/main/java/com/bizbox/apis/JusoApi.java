@@ -261,6 +261,7 @@ public class JusoApi {
 			if(radius == 2500) break;
 			if(radius == 0) {radius = 500;}
 			else {radius=radius+radiusincrease*300; radiusincrease++;}
+			System.out.println(radius);
 			String apiUrl = "http://apis.data.go.kr/B553077/api/open/sdsc/storeZoneInRadius?"
 					+ "radius=" + radius 
 					+ "&ServiceKey=" + ServiceKey 

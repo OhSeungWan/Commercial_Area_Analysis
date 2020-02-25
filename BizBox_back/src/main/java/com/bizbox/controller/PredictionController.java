@@ -33,6 +33,16 @@ public class PredictionController {
 			return new ResponseEntity<Object>("error", HttpStatus.NOT_FOUND);
 		}
 	}
+	@GetMapping("/findBusiness2/{place}")
+	public ResponseEntity<Object> findBusiness2(@PathVariable String place){
+		try {
+			JSONObject data = service.findAllPrediction2(place);
+			return new ResponseEntity<Object>(data,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("error", HttpStatus.NOT_FOUND);
+		}
+	}
 	@GetMapping("/findplace/{cx}/{cy}")
 	public ResponseEntity<Object> findplace(@PathVariable String cx, @PathVariable String cy){
 		try {
@@ -57,6 +67,17 @@ public class PredictionController {
 	public ResponseEntity<Object> businessAnalysis(@PathVariable String cx, @PathVariable String cy, @PathVariable String business){
 		try {
 			JSONObject data = service.findBusinessAnalysis(cx, cy, business);
+			return new ResponseEntity<Object>(data,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("error", HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@GetMapping("/predict_business2/{place}/{business}")
+	public ResponseEntity<Object> businessAnalysis2(@PathVariable String place, @PathVariable String business){
+		try {
+			JSONObject data = service.findBusinessAnalysis2(place, business);
 			return new ResponseEntity<Object>(data,HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
