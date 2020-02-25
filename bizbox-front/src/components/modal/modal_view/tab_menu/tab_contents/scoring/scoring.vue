@@ -307,7 +307,7 @@ export default {
       }
     }
   },
-  created () {
+  mouted () {
     let vm = this
     let requestSalesUrl = '/predict/findBusiness/' + this.$store.state.Coords.lng + '/' + this.$store.state.Coords.lat + '/'
     axios.get(requestSalesUrl)

@@ -33,6 +33,25 @@ public class PredictionController {
 			return new ResponseEntity<Object>("error", HttpStatus.NOT_FOUND);
 		}
 	}
+	@GetMapping("/findplace/{cx}/{cy}")
+	public ResponseEntity<Object> findplace(@PathVariable String cx, @PathVariable String cy){
+		try {
+			JSONObject jsondata = jusoapi.findBusiness(cx, cy);
+			String address = (String) jsondata.get("mainTrarNm");
+			String [] addresslist = address.split(" ");
+			if(addresslist[0].contains("서울")) {
+				address="";
+				for(int i=1 ; i< addresslist.length; i++) {
+					if(i==addresslist.length-1) {address+=addresslist[i];}
+					else {address+=addresslist[i]+" ";}
+				}
+			}
+			return new ResponseEntity<Object>(address,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("error", HttpStatus.NOT_FOUND);
+		}
+	}
 	
 	@GetMapping("/predict_business/{cx}/{cy}/{business}")
 	public ResponseEntity<Object> businessAnalysis(@PathVariable String cx, @PathVariable String cy, @PathVariable String business){

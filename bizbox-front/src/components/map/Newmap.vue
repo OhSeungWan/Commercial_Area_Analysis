@@ -204,15 +204,13 @@ export default {
               image: markerImage
             }).setMap(this.map)
           }
-        })
+        })  
       // 로그인하면 자신이 등록한 점포 위치 나옴
     }
 
     kakao.maps.event.addListener(this.marker, 'click', function () {
       // 마커(자세히 보기) 클릭 시 모달창 이벤트 호출
-      // vm.eventBus(vm.$store.state.modalsearch)
-      vm.detail()
-      vm.changeModal()
+      // vm.changeModal()
     })
 
     // --인포윈도우 생성---------------------------------------------------------------
@@ -317,9 +315,9 @@ export default {
         // 각 폴리곤에 마우스 오버 이벤트 등록
         let Name = name
         let position = mouseEvent.latLng
-        polygon.setOptions({
-          fillColor: '#0a008f'
-        })
+        // polygon.setOptions({
+        //   fillColor: '#0a008f'
+        // })
         customOverlay.setContent(
           '<div class="area" style="font-size: 16px; border-radius: 3px; background: #fff; top: -5px; border: 1px solid #888; position: absolute; left:30px; padding:2px;">' +
             name +
@@ -335,9 +333,6 @@ export default {
       })
       kakao.maps.event.addListener(polygon, 'mouseout', () => {
         //  각 폴리곤에 마우스 아웃 이벤트 등록
-        polygon.setOptions({
-          fillColor: color
-        })
         customOverlay.setMap(null)
       })
       kakao.maps.event.addListener(polygon, 'click', mouseEvent => {
@@ -414,16 +409,16 @@ export default {
     setColor(color) {
       this.Color = color
     }, 
-    unDetail(){
-      this.map.setLevel(6,{anchor: this.ME.latLng}
-      );
-      this.polygon.setOptions({fillOpacity: 0.13})
-    },
-    detail(){
-      this.map.setLevel(3,{anchor: this.ME.latLng}
-      );
-      this.polygon.setOptions({fillOpacity: 0})
-    },
+    // unDetail(){
+    //   this.map.setLevel(6,{anchor: this.ME.latLng}
+    //   );
+    //   this.polygon.setOptions({fillOpacity: 0.13})
+    // },
+    // detail(){
+    //   this.map.setLevel(3,{anchor: this.ME.latLng}
+    //   );
+    //   this.polygon.setOptions({fillOpacity: 0})
+    // },
     storeAdd () {
       axios.post(
         '/user/addStore',

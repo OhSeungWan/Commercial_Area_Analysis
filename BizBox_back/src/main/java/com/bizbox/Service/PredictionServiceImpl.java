@@ -32,14 +32,12 @@ public class PredictionServiceImpl implements PredictionService {
 				else {address+=addresslist[i]+" ";}
 			}
 		}
-		System.out.println(address);
 		
 		JSONObject data = new JSONObject();
 		
 		List<Prediction> predict_2016 = dao.find2016Prediction(address);
 		List<Prediction> predict_2017 = dao.find2017Prediction(address);
 		List<Prediction> predict_2018 = dao.find2018Prediction(address);
-
 		data.put("2016", predict_2016);
 		data.put("2017", predict_2017);
 		data.put("2018", predict_2018);

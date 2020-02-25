@@ -84,36 +84,36 @@ export default {
       loadingStatus: true
     }
   },
-  created () {
-    const storeCountUrl = '/storecount/' + this.key + '/1000'
-    axios.get(storeCountUrl)
-      .then(res => {
-        console.log('success to get storeCount')
-        const JsonLarge = res.data.large
-        let totalCount = 0
-        if (JsonLarge.소매 !== undefined) {
-          this.stores.소매 = JsonLarge.소매
-          totalCount += Number(JsonLarge.소매)
-        }
-        if (JsonLarge.음식 !== undefined) {
-          this.stores.음식 = JsonLarge.음식
-          totalCount += Number(JsonLarge.음식)
-        }
-        if (JsonLarge.생활서비스 !== undefined) {
-          this.stores.서비스 = JsonLarge.생활서비스
-          totalCount += Number(JsonLarge.생활서비스)
-        }
-        if (JsonLarge.숙박 !== undefined) {
-          this.stores.숙박 = JsonLarge.숙박
-          totalCount += Number(JsonLarge.숙박)
-        }
-        if (JsonLarge.관광여가오락 !== undefined) {
-          this.stores.오락 = JsonLarge.관광여가오락
-          totalCount += Number(JsonLarge.관광여가오락)
-        }
-        this.stores.전체 = totalCount.toString()
-      })
-  },
+  // created () {
+  //   const storeCountUrl = '/storecount/' + this.key + '/1000'
+  //   axios.get(storeCountUrl)
+  //     .then(res => {
+  //       console.log('success to get storeCount')
+  //       const JsonLarge = res.data.large
+  //       let totalCount = 0
+  //       if (JsonLarge.소매 !== undefined) {
+  //         this.stores.소매 = JsonLarge.소매
+  //         totalCount += Number(JsonLarge.소매)
+  //       }
+  //       if (JsonLarge.음식 !== undefined) {
+  //         this.stores.음식 = JsonLarge.음식
+  //         totalCount += Number(JsonLarge.음식)
+  //       }
+  //       if (JsonLarge.생활서비스 !== undefined) {
+  //         this.stores.서비스 = JsonLarge.생활서비스
+  //         totalCount += Number(JsonLarge.생활서비스)
+  //       }
+  //       if (JsonLarge.숙박 !== undefined) {
+  //         this.stores.숙박 = JsonLarge.숙박
+  //         totalCount += Number(JsonLarge.숙박)
+  //       }
+  //       if (JsonLarge.관광여가오락 !== undefined) {
+  //         this.stores.오락 = JsonLarge.관광여가오락
+  //         totalCount += Number(JsonLarge.관광여가오락)
+  //       }
+  //       this.stores.전체 = totalCount.toString()
+  //     })
+  // },
   methods: {
     parentsMethod (score, name) {
       this.totalScore = score

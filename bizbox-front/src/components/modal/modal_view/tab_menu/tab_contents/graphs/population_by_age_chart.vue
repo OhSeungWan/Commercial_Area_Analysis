@@ -96,8 +96,9 @@ export default {
       return (idx + 1) * 10 + '대'
     }
   },
-  mounted () {
+  created () {
     this.draw()
+    alert('asdsad')
     eventBus.$on('clickmap', name => {
       this.key = name
       this.draw()

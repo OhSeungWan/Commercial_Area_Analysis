@@ -195,6 +195,7 @@ export default {
 
     kakao.maps.event.addListener(this.marker, 'click', function() {
       // 마커(자세히 보기) 클릭 시 모달창 이벤트 호출
+      vm.eventbus(vm.$store.state.modalsearch)
       vm.detail()
       vm.changeModal()
     })
@@ -317,13 +318,13 @@ export default {
       kakao.maps.event.addListener(polygon, 'click', mouseEvent => {
         //if (vm.$store.state.mode === 0) {
         if (vm.$store.state.mode !== 1) {
-          //vm.unDetail()
+          vm.unDetail()
           vm.setPolygon(polygon) // 현재 선택된 폴리곤 기억
-          vm.eventbus(name)
           vm.saveMouseEvent(mouseEvent.latLng, 0)
           let Name = name
           let coords = ''
           vm.setSerchkey(name) // 클릭된 영역의 동이름을 기억하는 메서드
+          vm.findb(mouseEvent.latLng)
           vm.setColor(color) // 현재 선택된 폴리곤의 색 기억
           let Marker = vm.marker
           coords = new kakao.maps.LatLng(vm.ME.getLat(), vm.ME.getLng()) // 결과값으로 받은 위치를 마커의 위치로 적용
@@ -333,21 +334,9 @@ export default {
           fillOpacity: 0.0
         })
           Marker.setPosition(coords)
-          // var imageSrc =
-          //   'https://post-phinf.pstatic.net/MjAxODEwMjlfMjIy/MDAxNTQwNzg4MzE3MjY5.LLHhYLh1j1_nHjfolzukFd3SgwPeusVXJFmUJ3voADcg.ir556-ycrlzdjx1QZ14LA73RHXamNw3Z6-abjpyrEvsg.GIF/%EC%9E%90%EC%84%B8%ED%9E%88%EB%B3%B4%EA%B8%B0.gif?type=w500_q75' // https://image.flaticon.com/icons/svg/1322/1322263.svg
-          // // 돋보기 모양 https://cdn.icon-icons.com/icons2/1744/PNG/512/3643762-find-glass-magnifying-search-zoom_113420.png
-          // var imageSize = new kakao.maps.Size(55, 55) // 마커이미지의 크기입니다
-          // var imageOption = { offset: new kakao.maps.Point(27, 69) } // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-          // var markerImage = new kakao.maps.MarkerImage(
-          //   imageSrc,
-          //   imageSize,
-          //   imageOption
-          // )
+
           var content = '<div class="wrap">' + Name + '</div>'
-          // '<div style="text-align: center; color:white;margin-top:10px; padding:2px; border:0px; background-color: #fff;border-radius: 3px; background: coral;">' +
-          // Name +
-          // '</div>'
-          // vm.marker.setImage(markerImage)
+         
           vm.marker.setPosition(coords)
           vm.info.setContent(content)
           vm.info.setPosition(coords)
@@ -397,6 +386,14 @@ export default {
     Loading
   },
   methods: {
+    findb(ME){
+       axios
+        .get('/predict/findplace/'  +  ME.getLng() + '/' + ME.getLat() )
+        .then(res => {
+          console.log(res)
+          alert(res.data)
+        })
+    },
     islogin(token) {
       this.drawMarker()
     },
@@ -519,9 +516,9 @@ export default {
       return posi
     },
     eventbus(name) {
-      if (this.showModal) {
-        eventBus.$emit('clickmap', name)
-      }
+      // if (this.showModal) {
+      //   eventBus.$emit('clickmap', name)
+      // }
       eventBus.$emit('clickmap', name)
     },
     myevent() {
@@ -643,7 +640,6 @@ export default {
           var coords = new kakao.maps.LatLng(result[0].y, result[0].x) // 결과값으로 받은 위치를 마커의 위치로 적용
           Marker.setPosition(coords)
           vm.map.setCenter(coords) // 새로 세팅된 센터 값으로 맵 세팅
-          vm.eventbus(Name)
           vm.saveMouseEvent2(coords, 0)
           vm.setSerchkey(Name) // 클릭된 영영ㄱ의 동이름을 기억하는 메서드
           var content = '<div class="wrap">' + Name + '</div>'

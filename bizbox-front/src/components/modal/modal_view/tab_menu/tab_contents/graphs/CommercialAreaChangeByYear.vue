@@ -99,9 +99,10 @@ export default {
     })
   },
   created () {
-    // eventBus.$on('clickmap', name => {
-    //   this.draw()
-    // })
+    eventBus.$on('clickmap', name => {
+      alert('1')
+      this.draw()
+    })
   },
   methods: {
     popup() {
@@ -109,6 +110,7 @@ export default {
       this.popflag = !this.popflag
     },
     draw() {
+      alert('11')
       this.chartdata = null
       this.chartoptions = null
 
