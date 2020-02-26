@@ -125,16 +125,15 @@ public class PopulationByController {
 		}
 	}
 
-	@GetMapping("/getPopulationByTime2/{cx}/{cy}")
-	public ResponseEntity<Object> getPopulationByTime2(@PathVariable String cx, @PathVariable String cy) {
+	@GetMapping("/getPopulationByTime2/{place}")
+	public ResponseEntity<Object> getPopulationByTime2(@PathVariable String place) {
 		PopulationByTime pbt;
 		List<String> adlist = new LinkedList<String>();
 		int Point = 0;
 		try {
 
 			JSONObject jsonObject = new JSONObject();
-			JSONObject jsondata = jusoApi.findBusiness(cx, cy);
-			String address = (String) jsondata.get("mainTrarNm");
+			String address = place;
 			String predoroname = address;
 			String [] addresslist = address.split(" ");
 			if(addresslist[0].contains("서울")) {
@@ -251,15 +250,14 @@ public class PopulationByController {
 			return new ResponseEntity<Object>("error", HttpStatus.BAD_REQUEST);
 		}
 	}
-	@GetMapping("/getPopulationByLocation2/{cx}/{cy}")
-	public ResponseEntity<Object> getPopulationByLocation(@PathVariable String cx, @PathVariable String cy) {
+	@GetMapping("/getPopulationByLocation2/{place}")
+	public ResponseEntity<Object> getPopulationByLocation2(@PathVariable String place) {
 		PopulationByLocation pbl = new PopulationByLocation();
 		List<String> adlist = new LinkedList<String>();
 		int Point = 0;
 		try {
-			JSONObject jsondata = jusoApi.findBusiness(cx, cy);
 			JSONObject jsonObject = new JSONObject();
-			String address = (String) jsondata.get("mainTrarNm");
+			String address = place;
 			String predoroname = address;
 			String [] addresslist = address.split(" ");
 			if(addresslist[0].contains("서울")) {

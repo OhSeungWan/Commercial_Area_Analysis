@@ -103,7 +103,7 @@ export default {
   mounted () {
     this.draw()
     eventBus.$on('clickmap', name => {
-      this.key = name
+      this.key = this.$store.state.place
       this.draw()
     })
   },
@@ -135,7 +135,7 @@ export default {
       this.btnStyle4.cursor = 'not-allowed'
 
       axios
-        .get('/population/getPopulationByTime/' + this.key)
+        .get('/population/getPopulationByTime2/' + this.key)
         .then(res => {
           this.result = res.data.pbt
           this.road = this.result.f

@@ -390,8 +390,6 @@ export default {
        axios
         .get('/predict/findplace/'  +  ME.getLng() + '/' + ME.getLat() )
         .then(res => {
-          console.log(res)
-          alert(res.data)
           this.$store.state.place = res.data
         })
     },

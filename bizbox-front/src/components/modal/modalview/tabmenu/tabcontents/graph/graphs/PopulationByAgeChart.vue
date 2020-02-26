@@ -47,7 +47,7 @@ export default {
       chartoptions: null,
       result: null,
       road: '',
-      key: this.$store.state.modalsearch,
+      key: this.$store.state.place,
       searchOption: 1,
       title: '연령별 유동인구',
       point: 0,
@@ -101,7 +101,7 @@ export default {
   mounted () {
     this.draw()
     eventBus.$on('clickmap', name => {
-      this.key = name
+      this.key = this.$store.state.place
       this.draw()
     })
   },
@@ -131,9 +131,8 @@ export default {
       this.btnStyle2.cursor = 'not-allowed'
       this.btnStyle3.cursor = 'not-allowed'
       this.btnStyle4.cursor = 'not-allowed'
-
       axios
-        .get('/population/getPopulationByLocation/' + this.key)
+        .get('/population/getPopulationByLocation2/' + this.key)
         .then(res => {
           console.log()
           this.result = res.data.pbl
