@@ -52,6 +52,7 @@ export default {
   },
   data () {
     return {
+      isnull : 0,
       sgCode: '',
       sgName: '',
       sales_2018: {
@@ -333,6 +334,8 @@ export default {
       let requestSalesUrl = '/predict/findBusiness/' + this.$store.state.Coords.lng + '/' + this.$store.state.Coords.lat + '/'
       axios.get(requestSalesUrl)
         .then(res => {
+          if(res === null){vm.isnull=null}
+          else{vm.isnull=0}
           let data2018 = res.data['2018']
           let data2017 = res.data['2017']
           let data2016 = res.data['2016']
@@ -461,6 +464,7 @@ export default {
               let resquestHistoryUrl = '/change/getHistory/' + vm.key
               axios.get(resquestHistoryUrl)
                 .then(res => {
+                  console.log(res)
                   let continuousYears = Number(res.data.cblist[5].g)
                   let avgSeoul = Number(res.data.cblist[5].i)
                   vm.score.안정성.운영연수 = Number(((continuousYears / (avgSeoul + 2)) * 5).toFixed(2))
@@ -565,12 +569,11 @@ export default {
                 .then(() => {
                   vm.score.합계 = Number((vm.score.성장성.점수 + vm.score.안정성.점수 + vm.score.영업력.점수 + vm.score.구매력.점수 + vm.score.집객력.점수).toFixed(1))
                   vm.$emit('childs-event', vm.score.합계, vm.sgName)
-                  vm.$emit('childs-loading-event', false)
                 })
             })
-        }).finall(()=>{
-          this.$emit('childs-loading-event',false)
-        })
+          }).finally(()=>{
+            this.$emit('childs-loading-event',false)
+          })
     }
   }
 }

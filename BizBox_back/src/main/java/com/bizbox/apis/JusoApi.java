@@ -274,6 +274,7 @@ public class JusoApi {
 			String tempStr = null;
 			while (true) {
 				tempStr = br.readLine();
+				//System.out.println(tempStr);
 				if (tempStr == null)
 					break;
 				sb.append(tempStr);

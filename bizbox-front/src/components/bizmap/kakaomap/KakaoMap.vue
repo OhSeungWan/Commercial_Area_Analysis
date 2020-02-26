@@ -773,6 +773,7 @@ export default {
           this.drawingCircle.setMap(null) // 그려지고 있는 원, 선, 커스텀오버레이를 지도에서 제거합니다
           this.drawingLine.setMap(null)
           this.drawingOverlay.setMap(null)
+          this.$store.state.mode = 0 
         }
       }
     },
