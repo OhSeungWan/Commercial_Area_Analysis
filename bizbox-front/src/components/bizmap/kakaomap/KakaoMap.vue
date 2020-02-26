@@ -25,12 +25,27 @@
             <div id="graph-info">
               <canvas class="chart" id="horizontalbarChart"></canvas>
             </div>
+              <v-btn class="addbt2" v-on:click="showDetail" icon style="font-weight:bold;font-size: 1.1em">
+            자세히 보기
+            <v-icon>mdi-magnify-plus</v-icon>
+          </v-btn>
           </div>
           <!-- <div class="map" id="map"></div> -->
           <v-btn class="addbt" v-on:click="addMyStore" icon style="font-weight:bold;font-size: 1.1em">
             현재 위치에 내 점포 추가하기
-            <v-icon>mdi-magnify</v-icon>
+            <v-icon>mdi-store</v-icon>
           </v-btn>
+          <div class="ssss2" >
+            <div class="whatcolorbox"><div class="whatcolor" style="background-color:#fca103;"></div></div>
+            <span class="whatcolorelement">상권정체</span>
+            <div class="whatcolorbox"><div class="whatcolor" style="background-color:#039dfc;"></div></div>
+            <span class="whatcolorelement">상권확장</span>
+            <div class="whatcolorbox"><div class="whatcolor" style="background-color:#fc1803;"></div></div>
+            <span class="whatcolorelement">상권축소</span>
+            <div class="whatcolorbox"><div class="whatcolor" style="background-color:#03fc24;"></div></div>
+            <span class="whatcolorelement">다이나믹</span>
+          </div>
+        
         </div>
         <div class="flip-card-back">
           <div class="storeform">
@@ -290,10 +305,6 @@ export default {
         // 각 폴리곤에 마우스 오버 이벤트 등록
         let Name = name
         let position = mouseEvent.latLng
-        // polygon.setOptions({
-        //   //fillColor: '#ffbf00',
-        //   fillOpacity: 0.5
-        // })
         customOverlay.setContent(
           '<div class="area" style="font-size: 16px; border-radius: 3px; background: #fff; top: -5px; border: 1px solid #888; position: absolute; left:30px; padding:2px;">' +
             name +
@@ -366,6 +377,19 @@ export default {
         }
       })
     }
+          this.ME = new kakao.maps.LatLng(37.505691, 127.0298106);
+          let coords = new kakao.maps.LatLng( 37.505691, 127.0298106)
+          this.findb(this.ME)
+          this.marker.setPosition(coords)
+
+          var content = '<div class="wrap">' + '역삼1동' + '</div>'
+         
+          this.marker.setPosition(coords)
+          this.info.setContent(content)
+          this.info.setPosition(coords)
+          this.info.setMap(this.map)
+          this.map.setCenter(coords)
+          this.myevent()
   },
   computed: {
     ...mapGetters(['isLoggedIn']),
@@ -386,6 +410,10 @@ export default {
     Loading
   },
   methods: {
+    showDetail(){
+      this.eventbus(this.$store.state.modalsearch)
+      this.changeModal()
+    },
     findb(ME){
        axios
         .get('/predict/findplace/'  +  ME.getLng() + '/' + ME.getLat() )
@@ -515,9 +543,6 @@ export default {
       return posi
     },
     eventbus(name) {
-      // if (this.showModal) {
-      //   eventBus.$emit('clickmap', name)
-      // }
       eventBus.$emit('clickmap', name)
     },
     myevent() {
@@ -1671,15 +1696,34 @@ button {
 }
 .ssss {
   padding: 5px;
-  width: 370px;
+  width: 368px;
   height: 200px;
   z-index: 2;
   position: fixed;
   top: 400px;
   left: 50px;
-  background-color: tomato;
+  background-color: white;
   border-radius: 3px;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 7px 9px -4px rgba(0, 0, 0, 0.2), 0px 14px 21px 2px rgba(0, 0, 0, 0.14), 0px 5px 26px 4px rgba(0, 0, 0, 0.12) !important;
+}
+.ssss2 {
+  
+  padding: 4px;
+  width: 150px;
+  height: 100px;
+  z-index: 2;
+  position: fixed;
+  top: 665px;
+  left: 50px;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0px 7px 9px -4px rgba(0, 0, 0, 0.2), 0px 14px 21px 2px rgba(0, 0, 0, 0.14), 0px 5px 26px 4px rgba(0, 0, 0, 0.12) !important;
+}
+.whatcolorbox{
+  height: 0px;
+}
+.whatcolorelement {
+    padding-left: 20px;
 }
 .addbt {
   display: inline-block;
@@ -1687,24 +1731,33 @@ button {
   position: fixed;
   width: 370px;
   height: 40px;
-  top: 350px;
+  top: 348px;
+  left: 49px;
+  border-radius: 3px;
+}
+.addbt2 {
+  display: inline-block;
+  z-index: 2;
+  position: fixed;
+  width: 370px;
+  height: 40px;
+  top: 598px;
   left: 49px;
   border-radius: 3px;
 }
 .addinput {
   color: tomato;
 }
-// element.style {
-//   background: white;
-// }
+.whatcolor{
+  //background-color: tomato;
+  width: 20px;
+  height: 20px;
+}
 #graph-info {
   margin: 0;
   width: 360px !important;
   height: 190px !important;
   background: white !important;
   border-radius: 3px;
-}
-.ColorEx {
-  
 }
 </style>
