@@ -568,6 +568,8 @@ export default {
                   vm.$emit('childs-loading-event', false)
                 })
             })
+        }).finall(()=>{
+          this.$emit('childs-loading-event',false)
         })
     }
   }
