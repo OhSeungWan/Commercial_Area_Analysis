@@ -14,7 +14,7 @@ Commercial Area Analysis
 
 Jwt토큰을 이용한 로그인  및 SNS 로그인 기능이 구현되어있습니다.
 
-Technical stack
+**Technical stack**
 
 <img src="https://user-images.githubusercontent.com/56620330/75417977-a60ae900-5975-11ea-9e05-bc6b938fb197.png" alt="스프링" style="zoom: 33%;" />    <img src="https://user-images.githubusercontent.com/56620330/75418145-144fab80-5976-11ea-9650-5f9fab957792.png" alt="뷰제이에스" style="zoom: 33%;" /> <img src="https://user-images.githubusercontent.com/56620330/75418176-26c9e500-5976-11ea-9cb8-8ce5f42013cb.PNG" alt="마이에스큐엘" style="zoom: 50%;" />
 
