@@ -14,9 +14,12 @@ Commercial Area Analysis
 
 Jwt토큰을 이용한 로그인  및 SNS 로그인 기능이 구현되어있습니다.
 
-VUE, 와 Spring , MySql, KakaoMap Api를 이용합니다.
+Technical stack
 
-----------------------------업데이트 중 --------------------------------------------
+<img src="C:\Users\USER\Desktop\스프링.PNG" alt="스프링" style="zoom: 33%;" />    <img src="C:\Users\USER\Desktop\뷰제이에스.PNG" alt="뷰제이에스" style="zoom: 33%;" /> <img src="C:\Users\USER\Desktop\마이에스큐엘.PNG" alt="마이에스큐엘" style="zoom: 50%;" />
+
+ <img src="C:\Users\USER\Desktop\큐지아이에스.PNG" alt="큐지아이에스" style="zoom: 25%;" />   <img src="C:\Users\USER\Desktop\카카오맵.PNG" alt="카카오맵" style="zoom:33%;" /> <img src="C:\Users\USER\Desktop\시에스에스.PNG" alt="시에스에스" style="zoom: 67%;" />
+
 
 
 
