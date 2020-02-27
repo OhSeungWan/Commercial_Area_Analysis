@@ -34,6 +34,9 @@ Jwt토큰을 이용한 로그인  및 SNS 로그인 기능이 구현되어있습
  <img src="https://user-images.githubusercontent.com/56620330/75417521-9c34b600-5974-11ea-9c3f-edf81cdbb967.PNG" alt="큐지아이에스" style="zoom: 25%;" />   <img src="https://user-images.githubusercontent.com/56620330/75417523-9ccd4c80-5974-11ea-801a-eea0ead0865b.PNG" alt="카카오맵" style="zoom:33%;" /> <img src="https://user-images.githubusercontent.com/56620330/75417524-9ccd4c80-5974-11ea-9074-76d35eb0d8de.PNG" alt="시에스에스" style="zoom: 67%;" />
 
 
+# **실행영상**
+
+
 https://www.youtube.com/watch?v=guHmPlm5OQM&feature=youtu.be
 
 
