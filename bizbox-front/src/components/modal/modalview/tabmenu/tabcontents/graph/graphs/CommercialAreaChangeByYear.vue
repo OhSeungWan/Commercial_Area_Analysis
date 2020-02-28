@@ -96,7 +96,6 @@ export default {
     eventBus.$on('clickmap', name => {
         this.key = name
         this.draw()
-      
     })
   },
   created () {

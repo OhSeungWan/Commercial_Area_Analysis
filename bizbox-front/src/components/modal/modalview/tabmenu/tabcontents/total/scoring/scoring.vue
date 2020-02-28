@@ -334,7 +334,6 @@ export default {
       let requestSalesUrl = '/predict/findBusiness/' + this.$store.state.Coords.lng + '/' + this.$store.state.Coords.lat + '/'
       axios.get(requestSalesUrl)
         .then(res => {
-          console.log(res)
           let data2018 = res.data['2018']
           let data2017 = res.data['2017']
           let data2016 = res.data['2016']
@@ -474,7 +473,6 @@ export default {
               let resquestHistoryUrl = '/change/getHistory/' + vm.key
               axios.get(resquestHistoryUrl)
                 .then(res => {
-                  console.log(res)
                   let continuousYears = Number(res.data.cblist[5].g)
                   let avgSeoul = Number(res.data.cblist[5].i)
                   vm.score.안정성.운영연수 = Number(((continuousYears / (avgSeoul + 2)) * 5).toFixed(2))

@@ -2,7 +2,7 @@
   <div>
     <div class="section-modal">
       <h2 class="bz-each-title">
-        연도별 상권 변화 지표
+        연령별 유동인구
       </h2>
       <popByAge />
       <h2 class="bz-each-title">
