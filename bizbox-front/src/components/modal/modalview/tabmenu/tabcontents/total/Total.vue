@@ -101,9 +101,16 @@ export default {
   },
   methods: {
     parentsMethod (score, name) {
+      if(name==='NoData'){
+      this.totalScore = '업데이트 예정'
+      this.sgName = '죄송합니다 이지역'
+      this.$store.state.sgName = ''
+      }
+       else{
       this.totalScore = score
       this.sgName = name
       this.$store.state.sgName = name
+       } 
     },
     loadingMethod (status) {
       this.loadingStatus = status

@@ -39,10 +39,11 @@ public class PredictionServiceImpl implements PredictionService {
 		}
 
 		JSONObject data = new JSONObject();
-
+//		String predoroname = jusoService.getAddressByName(RemovedAddress).split(",")[11];// 도로명
 		List<Prediction> predict_2016 = dao.find2016Prediction(address);
 		List<Prediction> predict_2017 = dao.find2017Prediction(address);
 		List<Prediction> predict_2018 = dao.find2018Prediction(address);
+		if(predict_2016.size()==0) {System.out.println("NoData");}
 		data.put("2016", predict_2016);
 		data.put("2017", predict_2017);
 		data.put("2018", predict_2018);

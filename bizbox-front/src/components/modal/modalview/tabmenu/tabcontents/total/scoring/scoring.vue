@@ -334,15 +334,25 @@ export default {
       let requestSalesUrl = '/predict/findBusiness/' + this.$store.state.Coords.lng + '/' + this.$store.state.Coords.lat + '/'
       axios.get(requestSalesUrl)
         .then(res => {
-          if(res === null){vm.isnull=null}
-          else{vm.isnull=0}
+          console.log(res)
           let data2018 = res.data['2018']
           let data2017 = res.data['2017']
           let data2016 = res.data['2016']
-
-          vm.sgCode = data2018[0].trdar_cd
+          if(data2018.length==0){
+          vm.sgCode=0
+          vm.sgName ='NoData'
+          vm.$emit('childs-event', vm.score.합계, vm.sgName)
+          vm.$emit('childs-loading-event',false)
+          vm.score.성장성.점수 = 0
+          vm.score.안정성.점수 = 0
+          vm.score.영업력.점수 = 0
+          vm.score.구매력.점수 = 0
+          vm.score.집객력.점수 = 0
+          }
+          else{
+            vm.sgCode = data2018[0].trdar_cd
           vm.sgName = data2018[0].trdar_cd_nm
-
+          }
           // 집객력 > 주거인구, 직장인구
           for (let index = 0; index < data2018.length; index++) {
             let temp2018 = data2018[index]
