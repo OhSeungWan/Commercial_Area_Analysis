@@ -149,9 +149,7 @@ public class PopulationByController {
 
 			jsonObject.put("pbt", pbt);
 			jsonObject.put("point", Point);
-			if (pbt == null) {
-				return new ResponseEntity<Object>("해당주소의 데이터가 존재하지 않습니다.", HttpStatus.NOT_FOUND);
-			}
+			
 			return new ResponseEntity<Object>(jsonObject, HttpStatus.OK);
 		} catch (Exception e) {
 

@@ -11,9 +11,10 @@
     </div>
     <p class="point-content-area Content" style="font-size: 1.2em;
     font-weight: bold;">
-      <span class="point-title">{{maxAgeMaker}}</span>
-      <span class="point-percent">{{percentMaker}}</span>
-      <span class="point-normal">유동인구가 가장 많아요.</span>
+      <span class="point-title" v-if="isOk">{{maxAgeMaker}}</span>
+      <span class="point-percent" v-if="isOk" >{{percentMaker}}</span>
+      <span class="point-normal" v-if="isOk" >유동인구가 가장 많아요.</span>
+      <span class="point-normal" v-if="!isOk">데이터 업데이트 예정입니다</span>
     </p>
     <div id="chart">
       <loading :loading="loadingStatus" :transparent='true'></loading>
@@ -42,6 +43,7 @@ export default {
   },
   data () {
     return {
+      isOk:true,
       popflag: false,
       chartdata: null,
       chartoptions: null,
@@ -102,6 +104,7 @@ export default {
     this.draw()
     eventBus.$on('clickmap', name => {
       this.key = this.$store.state.place
+       this.isOk=true
       this.draw()
     })
   },
@@ -134,10 +137,25 @@ export default {
       axios
         .get('/population/getPopulationByLocation2/' + this.key)
         .then(res => {
-          console.log()
           this.result = res.data.pbl
+          if( this.result === null){
+            this.result= {
+              j:0,
+              k:0,
+              l:0,
+              m:0,
+              n:0,
+              o:0
+            }
+            this.road = 'Nodata'
+            this.isOk = false
+          }
+          else{
           this.road = this.result.f
           this.point = res.data.point
+          this.isOk = true
+          }
+          
         })
         .finally(() => {
           this.chartdata = {
