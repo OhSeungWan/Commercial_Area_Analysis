@@ -40,3 +40,5 @@ Jwt토큰을 이용한 로그인  및 SNS 로그인 기능이 구현되어있습
 https://www.youtube.com/watch?v=guHmPlm5OQM&feature=youtu.be
 
 
+# **AWS배포 사이트 URL**
+http://i02a207.p.ssafy.io/
