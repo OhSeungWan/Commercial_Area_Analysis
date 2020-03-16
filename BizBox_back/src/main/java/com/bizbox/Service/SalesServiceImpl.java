@@ -29,7 +29,7 @@ public class SalesServiceImpl implements SalesService {
 		return dao.salesInfo(address);
 	}
 	
-	@Cacheable(cacheNames = "salesInfosub")
+	@Cacheable(value="test4")
 	public List<SalesInformation> salesInfosub(String address) throws Exception {
 		List<SalesInformation> list = new LinkedList<SalesInformation>();
 		String preaddress = util.RemoveNumber(address);
