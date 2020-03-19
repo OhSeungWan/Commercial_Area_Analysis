@@ -3,6 +3,7 @@ package com.bizbox.controller;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,6 +31,7 @@ public class StoreCountController {
 	@Autowired
 	JusoApi jusoApi;
 	
+	@Cacheable(value="storecount")
 	@GetMapping("/storecount/{address}/{range}")
 	public ResponseEntity<Object> getStoreNumByCount(@PathVariable String address,@PathVariable String range){
 		try {
